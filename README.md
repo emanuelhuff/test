@@ -42,6 +42,7 @@ Here's an example script in Python that demonstrates how to use the TechPort API
 import requests
 
 url = "https://techport.nasa.gov/api/projects"
+urlWithQuery = "https://techport.nasa.gov/api/projects/search?titleSearch=solar%20electric%20propulsion"
 headers = {
     "Authorization": "<API Token>",
     "Accept": "application/json"
