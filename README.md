@@ -14,7 +14,7 @@ Please note that because the token reflects an active session, you’ll need a n
 
 ## API Endpoints
 
-The Public TechPort API supports the following GET endpoints:
+The TechPort API supports the following GET endpoints:
 
 - `/api`: Returns the swagger specification for the API.
 - `/api/projects`: Returns a list of available technology project IDs.
@@ -23,6 +23,30 @@ The Public TechPort API supports the following GET endpoints:
 - `/api/organizations`: Returns a list of organizations that match a given name.
 - `/api/organizations/types`: Returns a list of available organization types, including set-aside and MSI types.
 - `/api/organizations/{organizationId}`: Get an organization and its information.
+
+## Parameters
+
+### `/api/projects`
+
+Retrieves information about all projects.
+
+- `updatedSince`: (string, $date) ISO 8601 full-date format (YYYY-MM-DD). Filters the list of available ID values by their lastUpdated parameter. Example: `"2023-07-10"`
+
+### `/api/projects/search`
+
+Searches for projects based on specific criteria.
+
+- `projectId`: (integer, $int64) The specific ID of the project requested. Example: `13075`
+- `searchQuery`: (string) The term on which to search. It checks all project fields for this term. Example: `"human/robotic exploration and commercial spaceflight missions"`
+- `missionDirectorate`: (string) The mission directorate acronym of the projects. Used to filter. Example: `"STMD"`
+- `program`: (string) The program acronym of the projects. Used to filter. Example: `"TDM"`
+- `titleSearch`: (string) The term on which to search. It checks only project titles for this term. Example: `"solar electric propulsion"`
+
+### `/api/organizations`
+
+Retrieves information about all organizations.
+
+- `name`: (string) Organization Name to filter on. Example: `"NASA"`
 
 ## HTTP Response Codes
 
