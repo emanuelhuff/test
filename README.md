@@ -111,3 +111,4 @@ for id in projects:
         count = destDict.get(destName, 0)
         destDict[destName] = count + 1
 print(destDict)
+#{'The Moon': 13, 'Earth': 67, 'Mars': 14, 'Others Inside the Solar System': 15, 'Foundational Knowledge': 9}
