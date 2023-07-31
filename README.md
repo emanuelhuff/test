@@ -60,7 +60,7 @@ For more details on the endpoints, schemas, and general API information, please 
 
 ## Example Script
 
-Here's an example script in Python that demonstrates how to use the TechPort API:
+Here's a simple example script in Python that demonstrates how to use the TechPort API:
 
 ```python
 import requests
@@ -79,3 +79,35 @@ if response.status_code == 200:
     print(data)
 else:
     print(f"Error: {response.status_code} - {response.text}")
+```
+Here's a use case scenario to count the number of target destinations for projects that have been updated since 2023-07-17
+
+```python
+import requests
+
+url = "https://techport.nasa.gov/api/projects?updatedSince=2023-07-17"
+projUrl = "https://techport.nasa.gov/api/projects/"
+headers = {
+    "Authorization": "eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJUZWNoUG9ydCIsImV4cCI6MTY5MDkyNDg5OSwibmJmIjoxNjkwODM4NDk5LCJTRVNTSU9OX0lEIjoiTXlZMGVrZTl4OUhEcjFjQ20xWXRwd3V4eEJROXh5dE5CSmZQIiwiRklOR0VSUFJJTlRfSEFTSCI6IkQ3Qjg0MUY3RDIzNzI4NTlGM0ZFODY3MkVCRDc1RkZFNTVGNDE3MEZBMUYyQkY1MkVDMzlCMEE2MDFDM0Q0MDMifQ.DI4-yJEpVySxw_lNjs_UUkxsmrTgL48rU9mlRmP4HWg",
+    "Accept": "application/json"
+}
+
+response = requests.get(url, headers=headers)
+data = response.json()
+projects = []
+for project in data['projects']:
+    projectId = project['projectId']
+    projects.append(projectId)
+
+destDict = {}
+for id in projects:
+    url = projUrl + str(id)
+    response = requests.get(url)
+    data = response.json()
+    if 'destinations' in data['project']:
+        destinations = data['project']['destinations']
+    for dest in destinations:
+        destName = dest['description']
+        count = destDict.get(destName, 0)
+        destDict[destName] = count + 1
+print(destDict)
